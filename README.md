@@ -15,9 +15,9 @@ Things you may want to cover:
 |name|string|null: false, unique: true|
 
 ### association
-has_many :members
-has_many :users, through: :members
-has_many :charges
+* has_many :members
+* has_many :users, through: :members
+* has_many :charges
 
 
 ## userテーブル
@@ -27,11 +27,11 @@ has_many :charges
 Email not included
 
 ### association
-has_many :members
-has_many :groups, through: :members
-has_many :comments
-has_many :debts
-has_many :charges
+* has_many :members
+* has_many :groups, through: :members
+* has_many :comments
+* has_many :debts
+* has_many :charges
 
 
 ## memberテーブル
@@ -42,8 +42,8 @@ has_many :charges
 
 
 ### association
-belongs_to :group
-belongs_to :user
+* belongs_to :group
+* belongs_to :user
 
 
 ## chargeテーブル
@@ -55,10 +55,10 @@ belongs_to :user
 |user_id|integer|null: false, foreign_key: true|
 
 ### association
-belongs_to :group
-belongs_to :user
-has_many :comments
-has_many :debts
+* belongs_to :group
+* belongs_to :user
+* has_many :comments
+* has_many :debts
 
 
 ## commentテーブル
@@ -68,8 +68,8 @@ has_many :debts
 |user_id|integer|null: false, foreign_key: true|
 
 ### association
-belongs_to :charge
-belongs_to :user
+* belongs_to :charge
+* belongs_to :user
 
 
 ## debtテーブル
@@ -79,5 +79,5 @@ belongs_to :user
 |user_id|integer|null: false, foreign_key: true|
 
 ### association
-belongs_to :charge
-belongs_to :user
+* belongs_to :charge
+* belongs_to :user
