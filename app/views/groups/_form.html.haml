@@ -1,0 +1,10 @@
+= form_for group do |f|
+  - if group.errors.any?
+    #error_explanation
+      %h2= "エラーが#{group.errors.full_messages.count}件発生しました。"
+      %ul
+        - group.errors.full_messages.each do |message|
+          %li= message
+  = f.text_field :name, class: "field", placeholder: "グループ名"
+  -# = f.text_field :user_ids
+  = f.submit class: "action", value: "作成"

@@ -1,0 +1,9 @@
+%h1 グループ検索
+= form_tag("/groups/search", method: "get") do
+  = text_field :keyword, class: "target-word"
+  = submit_tag "検索"
+
+%h2 検索結果
+%ul
+  - @groups.each do |group|
+    = group.name
