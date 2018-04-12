@@ -1,9 +1,26 @@
 %h1 グループ検索
-= form_tag("/groups/search", method: "get") do
-  = text_field :keyword, class: "target-word"
-  = submit_tag "検索"
+= form_tag "/groups/search", method: :get , class: "search-group" do
+  = text_field_tag :keyword, "", autofocus: true
+  = submit_tag "検索", class: "submit"
+-#
+-# %form{ method: "patch", action: "/groups/6" }
+-#   %input{ name: "password", type: "text"}/
+-#   %input{ type: "submit", value: "送信"}/
 
-%h2 検索結果
-%ul
-  - @groups.each do |group|
-    = group.name
+
+%h2.resultedSearch 検索結果
+.search-result
+#modal-main
+  .destroy
+    %i.fa.fa-times{"aria-hidden" => "true"}
+  = form_for @member do |f|
+    %p#modal-main__group-name
+    %p パスワードを入力してください
+    = f.text_field :password
+    = f.hidden_field :group_id , class: "group-id"
+    = f.submit "送信"
+
+%br
+%br
+%br 
+= link_to "戻る", root_path

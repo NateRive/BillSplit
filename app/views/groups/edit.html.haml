@@ -1,5 +1,21 @@
-%h1 Editing Group
-= render 'form', group: @group
-= link_to 'Show', @group
-|
-= link_to 'Back', groups_path
+.edit-group{ data: { groupId: @group.id }}
+  %h1 Editing Group
+  %h3 メンバー一覧
+  - @group.users.each do |user|
+    .user-name
+      = user.name
+      %span.destroy-member-btn{ data: { id: user.id } }
+        =link_to "削除"
+  #modal-main
+    .destroy
+      %i.fa.fa-times{"aria-hidden" => "true"}
+    %p 本当に削除しますか？
+    %span.really-delete-member
+      = link_to "はい"
+    %span= link_to "いいえ"
+  #modal-bg
+
+    %br
+  = link_to 'Show', @group
+  |
+  = link_to 'Back', groups_path

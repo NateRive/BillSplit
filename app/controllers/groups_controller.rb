@@ -3,61 +3,58 @@ class GroupsController < ApplicationController
 
 
   def index
-    @groups = Group.all
+    @groups = current_user.groups
   end
 
-  # GET /groups/1
-  # GET /groups/1.json
   def show
   end
 
 
   def search
-
-    @groups = Group.where("name = ?", "#{params[:keyword]}")
+    @groups = Group.where("name like(?)", "#{params[:keyword]}%")
+    @new_groups = @groups.select{ |group| !group.users.ids.include?(current_user.id) }
+    # binding.pry
+    @member = Member.new
+    respond_to do |format|
+      format.json
+      format.html
+    end
   end
 
-  # GET /groups/new
+
   def new
     @group = Group.new
   end
 
-  # GET /groups/1/edit
+
   def edit
   end
 
-  # POST /groups
-  # POST /groups.json
+
   def create
-    @group = Group.new(group_params)
-
-    respond_to do |format|
+    @group = Group.new(create_params)
       if @group.save
-        format.html { redirect_to groups_path, notice: 'Group was successfully created.' }
-        format.json { render :show, status: :created, location: @group }
+        redirect_to groups_path, notice: 'Group was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
+
   end
 
-  # PATCH/PUT /groups/1
-  # PATCH/PUT /groups/1.json
+
   def update
-    respond_to do |format|
-      if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @group }
+    if @group.password == create_params[:password]
+      if @group.update(create_params)
+        redirect_to groups_path, notice: 'Group was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        render "new", alert: "something is wrong"
       end
+    else
+      render "search", alert: "password is wrong"
     end
   end
 
-  # DELETE /groups/1
-  # DELETE /groups/1.json
+
   def destroy
     @group.destroy
     respond_to do |format|
@@ -73,7 +70,11 @@ class GroupsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def group_params
-      params.require(:group).permit(:name, { user_ids: [] })
+    def create_params
+      params.require(:group).permit(:name, :password).merge(user_ids: current_user.id)
     end
+
+    # def update_params
+    #   params.permit(:name, :password).merge(user_ids: )
+    # end
 end

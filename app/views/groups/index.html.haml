@@ -1,8 +1,10 @@
-%h1 Groups
+%h1 割り勘アプリ
+%h2= "ユーザー名：" + current_user.name
+%h2 グループ一覧
 %table
   %thead
     %tr
-      %th Name
+      %th  グループ名
       %th{:colspan => "3"}
   %tbody
     - @groups.each do |group|
@@ -12,5 +14,6 @@
         %td= link_to 'Edit', edit_group_path(group)
         %td= link_to 'Destroy', group, method: :delete
 %br/
-= link_to '追加', new_group_path
-= link_to '探す', groups_search_path
+= link_to "作成", new_group_path
+= link_to 'グループを探す', groups_search_path
+= link_to "ログアウト",  destroy_user_session_path, method: :delete

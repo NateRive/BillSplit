@@ -61,7 +61,7 @@ Email not included
 * has_many :debts
 
 
-## commentテーブル
+<!-- ## commentテーブル
 |Column|type|option|
 |------|----|------|
 |body|string|null: false|
@@ -80,4 +80,4 @@ Email not included
 
 ### association
 * belongs_to :charge
-* belongs_to :user
+* belongs_to :user -->

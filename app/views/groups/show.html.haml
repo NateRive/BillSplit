@@ -1,7 +1,15 @@
+.show-page
+  %p#show-header
+    %strong グループ名
+    = @group.name
+    %span.edit-group= link_to "Edit", edit_group_path(@group)
 
-%p
-  %strong Name:
-  = @group.name
-= link_to 'Edit', edit_group_path(@group)
-|
-= link_to 'Back', groups_path
+  .middle-content
+    .left-content{ style:"width: 50%;" }
+    %h3 メンバー一覧
+    - @group.users.each do |each_user|
+      %div= each_user.name
+
+    .right-content
+
+  = link_to 'グループ一覧', groups_path
