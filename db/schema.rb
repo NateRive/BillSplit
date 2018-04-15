@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409085027) do
+ActiveRecord::Schema.define(version: 20180414084456) do
+
+  create_table "charges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title", null: false
+    t.bigint "user_id"
+    t.bigint "chargeduser_id"
+    t.integer "amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "group_id"
+    t.index ["chargeduser_id"], name: "index_charges_on_chargeduser_id"
+    t.index ["group_id"], name: "index_charges_on_group_id"
+    t.index ["user_id"], name: "index_charges_on_user_id"
+  end
 
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -47,6 +60,9 @@ ActiveRecord::Schema.define(version: 20180409085027) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "charges", "groups"
+  add_foreign_key "charges", "users"
+  add_foreign_key "charges", "users", column: "chargeduser_id"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
 end

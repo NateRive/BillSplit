@@ -1,8 +1,72 @@
-.show-page {
+#show-header {
   text-align: center;
   padding: 0 140px;
+  border-bottom: 1px solid gray;
 }
 
-#show-header {
-  border-bottom: 1px solid gray;
+.middle-content {
+
+  .left-content {
+    float: left;
+  }
+
+  .right-content {
+    float: left;
+    .charge-all-user__btn {
+      color: blue;
+      position: relative;
+    }
+    .charge-all-user__btn:active {
+      top: 3px;
+    }
+    .charge-all-user__btn:hover {
+      cursor: pointer;
+    }
+    .charged-user-candidate {
+      @include clearfix();
+      &__name {
+        float: left;
+      }
+      .charge-button {
+        color: blue;
+        float: right;
+        position: relative;
+      }
+      .charge-button:hover {
+        cursor: pointer;
+      }
+      .charge-button:active {
+        top: 3px;
+      }
+    }
+
+    .charged-user-list {
+      .charged-user-person{
+        @include clearfix();
+      }
+      .charged-user-person {
+        &__name {
+          float: left;
+        }
+        .charge-button--delete {
+          float: right;
+          color: blue;
+          position: relative;
+        }
+        .charge-button--delete:hover {
+          cursor: pointer;
+        }
+        .charge-button--delete:active {
+          top: 3px;
+        }
+      }
+    }
+  }
+
+}
+
+.middle-content:after {
+    content: '';
+    display: block;
+    clear: both;
 }

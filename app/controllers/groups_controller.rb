@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
   end
 
   def show
+    @charge = Charge.new
   end
 
 

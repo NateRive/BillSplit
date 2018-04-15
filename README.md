@@ -50,9 +50,9 @@ Email not included
 |Column|type|option|
 |------|----|------|
 |title|string|null: false, unique: true if group_id is same|
-|amaount|integer|null: false|
-|image|string|
+|amount|integer|null: false|
 |user_id|integer|null: false, foreign_key: true|
+|charged_user_id|integer|null: false, foreign_key: true|
 
 ### association
 * belongs_to :group
@@ -70,14 +70,3 @@ Email not included
 ### association
 * belongs_to :charge
 * belongs_to :user
-
-
-## debtテーブル
-|Column|type|option|
-|------|----|------|
-|charge_id|integer|null: false, foreign_key: true|
-|user_id|integer|null: false, foreign_key: true|
-
-### association
-* belongs_to :charge
-* belongs_to :user -->

@@ -11,7 +11,7 @@ module BillSplit
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
     config.generators do |g|
-      g.javascripts false
+      g.assets false
       g.helper false
       g.coffee false
     end

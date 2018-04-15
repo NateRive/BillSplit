@@ -6,10 +6,27 @@
 
   .middle-content
     .left-content{ style:"width: 50%;" }
-    %h3 メンバー一覧
-    - @group.users.each do |each_user|
-      %div= each_user.name
+      %h3 メンバー一覧
+      - @group.users.each do |each_user|
+        %div= each_user.name
+      = link_to 'グループ一覧', groups_path
 
     .right-content
+      %h3 メンバーに請求する
+      .charged-user-candidates
+        - @group.users.each do |each_user|
+          %div.charged-user-candidate{ data: { userid: each_user.id }}
+            %div.charged-user-candidate__name= each_user.name
+            %div.charge-button 請求
+        %h5.charge-all-user__btn 全員に請求
 
-  = link_to 'グループ一覧', groups_path
+      %h3 請求先
+      = form_for [@group, @charge] do |f|
+        .charged-user-list
+
+        = f.text_field :title, placeholder: "タイトル"
+        %br
+        = f.number_field :amount
+        円
+        %br
+        = f.submit "確定する"
