@@ -1,0 +1,18 @@
+%h2.show-header 請求詳細
+
+.charge-info{ style: "text-align: center;" }
+  内容:
+  = @charge.title
+  %br
+  金額:
+  = @charge.amount
+  %br
+  請求者:
+  = @charge.user.name
+  %br
+  請求対象者一覧:
+  %ul
+  - @charge.charged_users.each_with_index do |charged_user, index|
+    %li{ style: "list-style: none;"}= (index + 1).to_s + "." + charged_user.user.name
+  %br
+  = link_to "グループ画面に戻る", group_path(@group)

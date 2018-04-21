@@ -6,6 +6,7 @@ class Group < ApplicationRecord
   validate :add_error_message
   has_many :members
   has_many :users, through: :members
+  has_many :charges
 
 
 

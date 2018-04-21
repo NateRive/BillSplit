@@ -1,32 +1,56 @@
 .show-page
-  %p#show-header
+  %p.show-header
     %strong グループ名
     = @group.name
     %span.edit-group= link_to "Edit", edit_group_path(@group)
 
-  .middle-content
-    .left-content{ style:"width: 50%;" }
+  .group__middle-content
+    .group__left-content
       %h3 メンバー一覧
-      - @group.users.each do |each_user|
-        %div= each_user.name
+      - @users.each_with_index do |each_user, index|
+        %span= each_user.name
+        - if index >= 1
+          ここに金額を記入
+        %br
       = link_to 'グループ一覧', groups_path
 
-    .right-content
+    .group__center-content
       %h3 メンバーに請求する
       .charged-user-candidates
         - @group.users.each do |each_user|
-          %div.charged-user-candidate{ data: { userid: each_user.id }}
-            %div.charged-user-candidate__name= each_user.name
-            %div.charge-button 請求
+          - if each_user != current_user
+            %div.charged-user-candidate{ data: { userid: each_user.id }}
+              %div.charged-user-candidate__name= each_user.name
+              %div.charge-button 請求
         %h5.charge-all-user__btn 全員に請求
 
-      %h3 請求先
+      - if @charge.errors.any?
+        = @charge.errors.full_messages.count + "件あります"
       = form_for [@group, @charge] do |f|
         .charged-user-list
-
+          %h3 請求先
+        %br
+        -# = f.hidden_field :user_id, name: "charged_user[user_id][]", multiple: true
         = f.text_field :title, placeholder: "タイトル"
         %br
         = f.number_field :amount
         円
+
         %br
         = f.submit "確定する"
+
+    .group__right-content
+      %h3 請求一覧
+      - @charges.reverse.each do |charge|
+        .charge-info
+          内容:
+          = link_to charge.title, group_charge_path(@group, charge)
+          %br
+          金額:
+          = charge.amount
+          %br
+          請求者:
+          = charge.user.name
+          %br
+          請求日時:
+          = charge.created_at
