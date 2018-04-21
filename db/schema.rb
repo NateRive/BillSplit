@@ -10,17 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180414084456) do
+ActiveRecord::Schema.define(version: 20180416050503) do
+
+  create_table "charged_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "charge_id"
+    t.index ["charge_id"], name: "index_charged_users_on_charge_id"
+    t.index ["user_id"], name: "index_charged_users_on_user_id"
+  end
 
   create_table "charges", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title", null: false
-    t.bigint "user_id"
-    t.bigint "chargeduser_id"
-    t.integer "amount", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "group_id"
-    t.index ["chargeduser_id"], name: "index_charges_on_chargeduser_id"
+    t.bigint "user_id"
+    t.integer "amount"
     t.index ["group_id"], name: "index_charges_on_group_id"
     t.index ["user_id"], name: "index_charges_on_user_id"
   end
@@ -60,9 +65,10 @@ ActiveRecord::Schema.define(version: 20180414084456) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "charged_users", "charges"
+  add_foreign_key "charged_users", "users"
   add_foreign_key "charges", "groups"
   add_foreign_key "charges", "users"
-  add_foreign_key "charges", "users", column: "chargeduser_id"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
 end

@@ -1,16 +1,17 @@
-#show-header {
+.show-header {
   text-align: center;
   padding: 0 140px;
   border-bottom: 1px solid gray;
 }
 
-.middle-content {
-
-  .left-content {
+.group__middle-content {
+  min-width: 932px;
+  .group__left-content {
+    width: 25%;
     float: left;
   }
 
-  .right-content {
+  .group__center-content {
     float: left;
     .charge-all-user__btn {
       color: blue;
@@ -62,7 +63,19 @@
       }
     }
   }
-
+  .group__right-content {
+    height: 500px;
+    border-bottom: 1px solid gray;
+    overflow: auto;
+    float: right;
+    width: 35%;
+    text-align: center;
+    min-width: 314px;
+    margin: 0 50px;
+    .charge-info {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 .middle-content:after {

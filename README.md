@@ -32,6 +32,7 @@ Email not included
 * has_many :comments
 * has_many :debts
 * has_many :charges
+* has_many :charged_users
 
 
 ## memberテーブル
@@ -52,13 +53,20 @@ Email not included
 |title|string|null: false, unique: true if group_id is same|
 |amount|integer|null: false|
 |user_id|integer|null: false, foreign_key: true|
-|charged_user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
 
 ### association
 * belongs_to :group
 * belongs_to :user
-* has_many :comments
-* has_many :debts
+* has_many :charged_users
+
+## charged_userテーブル
+|Column|type|option|
+|------|----|------|
+|user_id|integer|
+|amount|integer|
+* belongs_to :charge
+* belongs_to :user
 
 
 <!-- ## commentテーブル
