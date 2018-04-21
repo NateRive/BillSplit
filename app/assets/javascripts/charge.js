@@ -28,6 +28,8 @@ $(function() {
     }
   }
 
+
+
   $("#new_charge").submit(function(e) {
     var chargedUserLength = $(".charged-user-person").length;
     if (chargedUserLength == 0) {

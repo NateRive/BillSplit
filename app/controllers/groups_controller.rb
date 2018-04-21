@@ -9,6 +9,7 @@ class GroupsController < ApplicationController
   def show
     @charge = Charge.new
     @charges = @group.charges.order("created_at DESC").limit(40)
+    @new_charges = @charges.where("user_id = ?", current_user.id)
     @users = @group.users.select{ |user| user != current_user }.to_a.unshift(current_user)
   end
 

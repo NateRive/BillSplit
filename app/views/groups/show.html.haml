@@ -7,10 +7,15 @@
   .group__middle-content
     .group__left-content
       %h3 メンバー一覧
-      - @users.each_with_index do |each_user, index|
-        %span= each_user.name
-        - if index >= 1
-          ここに金額を記入
+      %table
+        %tr
+          %th 名前
+          %th 貸し借り純額
+        - @users.each_with_index do |each_user, index|
+          %tr
+            %td= each_user.name
+            - if index >= 1
+              %td{ style: "text-align: right;"}= calc_your_payment(@new_charges, @group, each_user)
         %br
       = link_to 'グループ一覧', groups_path
 
@@ -24,16 +29,20 @@
               %div.charge-button 請求
         %h5.charge-all-user__btn 全員に請求
 
-      - if @charge.errors.any?
-        = @charge.errors.full_messages.count + "件あります"
+
       = form_for [@group, @charge] do |f|
         .charged-user-list
           %h3 請求先
         %br
         -# = f.hidden_field :user_id, name: "charged_user[user_id][]", multiple: true
-        = f.text_field :title, placeholder: "タイトル"
+        = f.text_field :title, placeholder: "タイトル", required: true
         %br
-        = f.number_field :amount
+        %br
+        %span あなたが支払った金額
+        %br
+        %span (自分が負担する金額も含めて下さい)
+        %br
+        = f.number_field :amount, min: "2", required: true
         円
 
         %br
@@ -48,9 +57,10 @@
           %br
           金額:
           = charge.amount
+          円
           %br
           請求者:
           = charge.user.name
           %br
           請求日時:
-          = charge.created_at
+          = simple_time(charge.created_at)

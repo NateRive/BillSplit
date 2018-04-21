@@ -17,7 +17,6 @@ class ChargesController < ApplicationController
       redirect_to group_path(@group), notice: "請求が完了しました。"
     else
         redirect_to group_path(@group), alert: "何かがおかしいです"
-      # renderを使うとエラーが出る
     end
   end
 
@@ -27,6 +26,8 @@ class ChargesController < ApplicationController
 
   private
   def charge_params
+    number_users = params[:charged_user][:user_id].length + 1
+    params[:charge][:amount] = params[:charge][:amount].to_i * (number_users - 1) / number_users
     params.require(:charge).permit(:title, :amount).
     merge(user_id: current_user.id, group_id: params[:group_id])
   end
