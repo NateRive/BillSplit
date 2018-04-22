@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416050503) do
+ActiveRecord::Schema.define(version: 20180422081411) do
 
   create_table "charged_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.bigint "charge_id"
+    t.integer "status", null: false
     t.index ["charge_id"], name: "index_charged_users_on_charge_id"
     t.index ["user_id"], name: "index_charged_users_on_user_id"
   end

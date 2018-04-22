@@ -1,5 +1,6 @@
 class ChargesController < ApplicationController
-  before_action :set_group, only: [:create, :show]
+  before_action :set_group, only: [:create, :show, :update]
+  include ApplicationHelper
 
   def create
     @charge = Charge.new(charge_params)
@@ -20,8 +21,16 @@ class ChargesController < ApplicationController
     end
   end
 
+
   def show
     @charge = Charge.find_by(id: params[:id], group_id: params[:group_id])
+  end
+
+
+  def update
+    change_status(params[:user_id], params[:other_id])
+    change_status(params[:other_id], params[:user_id])
+    redirect_to group_path(@group), notice: "精算が完了しました。"
   end
 
   private
@@ -33,8 +42,9 @@ class ChargesController < ApplicationController
   end
 
   def charged_user_params
-    params.require(:charged_user).permit(:user_id).merge(charge_id: @charge.id)
+    params.require(:charged_user).permit(:user_id, :status).merge(charge_id: @charge.id)
   end
+
 
   def set_group
     @group = Group.find(params[:group_id])

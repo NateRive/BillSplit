@@ -16,7 +16,7 @@ module ApplicationHelper
     total_amount = []
     new_charges.each do |charge|
       charge.charged_users.each do |charged_user|
-        if charged_user.user_id == any_user.id
+        if charged_user.user_id == any_user.id and charged_user.status == 0
           total_amount <<  charge.amount / charge.charged_users.length
           break
         end
@@ -29,29 +29,17 @@ module ApplicationHelper
     end
   end
 
-  #
-  # - total_amount = []
-  # - @new_charges.each do |charge|
-  #   - charge.charged_users.each do |charged_user|
-  #     - if charged_user.user_id == each_user.id
-  #       - total_amount <<  charge.amount / charge.charged_users.length
-  #       - break
-  # - if total_amount.length == 0
-  #   - total_mycheck = 0
-  # - else
-  #   - total_mycheck = total_amount.inject(:+)
-  # - total_amount = []
-  # - each_user_charges = Charge.where("user_id = ? and group_id = ?", each_user.id, @group.id)
-  # - each_user_charges.each do |charge|
-  #   -charge.charged_users.each do |charged_user|
-  #     - if charged_user.user_id == current_user.id
-  #       - total_amount << charge.amount / charge.charged_users.length
-  #       - break
-  # - if total_amount.length == 0
-  #   - total_mydebt = 0
-  # - else
-  #   - total_mydebt = total_amount.inject(:+)
-  # = total_mycheck - total_mydebt
-  # 円
+
+  def change_status(charger_id, target_id)
+    charges= Charge.where("group_id = ? and user_id = ?", params[:group_id], charger_id)
+    charges.each do |charge|
+      charge.charged_users.each do |charged_user|
+        if charged_user.user_id == target_id.to_i
+          charged_user.update(status: 1)
+          break
+        end
+      end
+    end
+  end
 
 end
