@@ -15,8 +15,8 @@
           %tr
             %td= each_user.name
             - if index >= 1
-              %td{ style: "text-align: right;"}= calc_your_payment(@new_charges, @group, each_user)
-              %td=link_to "精算完了", "/groups/#{@group.id}/charges/#{current_user.id}/#{each_user.id}", method: :patch
+              %td.net_amount{ style: "text-align: right;"}= calc_your_payment(@new_charges, @group, each_user)
+              %td.pay_off=link_to "精算完了", "/groups/#{@group.id}/charges/#{current_user.id}/#{each_user.id}", method: :patch
         %br
       = link_to 'グループ一覧', groups_path
 

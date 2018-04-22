@@ -29,6 +29,14 @@ $(function() {
   }
 
 
+  $(".pay_off").click(function() {
+    var text = $(this).prev().text();
+    if (text == "0円") {
+      return false
+    }
+  });
+
+
 
   $("#new_charge").submit(function(e) {
     var chargedUserLength = $(".charged-user-person").length;
