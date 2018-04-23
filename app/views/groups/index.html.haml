@@ -12,7 +12,18 @@
         %td= group.name
         %td= link_to 'Show', group
         %td= link_to 'Edit', edit_group_path(group)
-        %td= link_to 'Destroy', group, method: :delete
+        %td.destroy-group{ data: { groupid: group.id }} Destroy
+
+#modal-main
+  .destroy
+    %i.fa.fa-times{"aria-hidden" => "true"}
+  %P 請求データなどが全て削除されます。
+  %P 本当に削除しますか？
+  = link_to "はい", "groups/", method: :delete, style: "color: black;"
+  %span#not-delete-group{ style: "color: black;" } いいえ
+#modal-bg
+
+
 %br/
 = link_to "作成", new_group_path
 = link_to 'グループを探す', groups_search_path

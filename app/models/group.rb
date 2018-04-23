@@ -1,12 +1,10 @@
 class Group < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: true
-  # validates :password, length: { maximum: 12 }
-  # validates :password, length: { minimum: 6 }
   validate :add_error_message
-  has_many :members
+  has_many :members,dependent: :destroy
   has_many :users, through: :members
-  has_many :charges
+  has_many :charges, dependent: :destroy
 
 
 

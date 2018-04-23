@@ -1,0 +1,17 @@
+
+.destroy-group:hover {
+  cursor: pointer;
+    transition-duration: 1000ms;
+  color: red;
+}
+
+.destroy-group:active {
+  position: relative;
+  top: 3px;
+}
+
+
+#not-delete-group {
+  cursor: pointer;
+  border-bottom: 1px solid gray;
+}

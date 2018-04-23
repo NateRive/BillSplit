@@ -89,4 +89,14 @@ $(function() {
   }
 
   bottom();
+
+  if (window.location.href.match(/groups\/\d+/)) {
+    map = new GMaps({
+    div: '#map', //地図を表示する要素
+    lat: 34.408882, //緯度
+    lng: 133.204869, //軽度
+    zoom: 18 //倍率（1～21）
+    });
+  }
+
 });

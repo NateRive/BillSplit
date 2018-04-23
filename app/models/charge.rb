@@ -1,5 +1,5 @@
 class Charge < ApplicationRecord
-  has_many :charged_users
+  has_many :charged_users, dependent: :destroy
   belongs_to :group
   belongs_to :user
   validate :check_amount
